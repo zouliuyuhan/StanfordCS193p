@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  day1-Lecture 1
+//  day3-Lecture 2
 //
 //  Created by 邹灿灿 on 2023/11/26.
 //
@@ -12,8 +12,8 @@ struct ContentView: View {
         HStack {
             CardView(isFaceUP: true)
             CardView(isFaceUP: false)
-            CardView(isFaceUP: true)
-            CardView(isFaceUP: false)
+            CardView()
+            CardView()
         }
         .foregroundColor(.orange)
         .padding()
@@ -21,21 +21,21 @@ struct ContentView: View {
 }
 
 struct CardView: View {
-    var isFaceUP: Bool = false
+    @State var isFaceUP  = true
     var body: some View {
-        ZStack(content: {
+        ZStack {
+            let base  = RoundedRectangle(cornerRadius: 12) //Type inference
             if isFaceUP {
-                RoundedRectangle(cornerRadius: 12)
-                    .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(lineWidth: 2.0)
+                base.fill(.white)
+                base.strokeBorder(lineWidth: 1.0)
                 Text("👻").font(.largeTitle)
-                
             }else {
-                RoundedRectangle(cornerRadius: 16)
-                    .foregroundColor(.green)
+                base.fill(.orange)
             }
-        })
+        }.onTapGesture {
+            //Bool has a function called toggle
+            isFaceUP.toggle()
+        }
     }
 }
 
